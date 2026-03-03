@@ -1,0 +1,48 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  
+  language: 
+    # strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+  errors: 
+    require_trailing_commas: info
+    avoid_print: info
+    sort_child_properties_last: info
+    avoid_unnecessary_containers: info
+    prefer_const_constructors: info
+    todo: info
+    prefer_expression_function_bodies: ignore
+
+linter:
+  rules:
+     # ---- Code correctness & safety ----
+    avoid_print: true
+    avoid_unnecessary_containers: true
+    avoid_returning_null_for_void: true
+    no_logic_in_create_state: true
+    prefer_relative_imports: true
+    # ---- Const & immutability (auto-fixable) ----
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_const_declarations: true
+     # ---- Readability & style ----
+    always_declare_return_types: true
+    avoid_bool_literals_in_conditional_expressions: true
+    avoid_redundant_argument_values: true
+    cascade_invocations: true
+    directives_ordering: true
+    require_trailing_commas: true
+    sort_constructors_first: true
+    always_put_required_named_parameters_first: true
+    # ---- Async / performance ----
+    unawaited_futures: true
+    avoid_slow_async_io: true
+    # ---- Null safety ----
+    avoid_null_checks_in_equality_operators: true
