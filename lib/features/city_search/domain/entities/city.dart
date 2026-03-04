@@ -1,10 +1,4 @@
 class City {
-
-  final String name;
-  final double latitude;
-  final double longitude;
-  final String country;
-
   const City({
     required this.name,
     required this.latitude,
@@ -12,4 +6,8 @@ class City {
     required this.country,
   });
 
+  final String name;
+  final double latitude;
+  final double longitude;
+  final String country;
 }

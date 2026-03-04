@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 
 import '../../features/city_search/presentation/pages/city_search_screen.dart';
-import '../../features/weather/presentation/pages/weather_screen.dart';
 import '../../features/forecast/presentation/pages/forecast_screen.dart';
+import '../../features/weather/presentation/pages/weather_screen.dart';
 
 part 'app_router.gr.dart';
 
