@@ -1,7 +1,6 @@
 abstract class CitySearchEvent {}
 
 class SearchCityEvent extends CitySearchEvent {
-  final String cityName;
-
   SearchCityEvent(this.cityName);
+  final String cityName;
 }

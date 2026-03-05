@@ -14,7 +14,6 @@ class CitySearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final dioClient = DioClient();
     final remoteDatasource = CityRemoteDatasource(dioClient);
     final repository = CityRepositoryImpl(remoteDatasource);
@@ -22,7 +21,7 @@ class CitySearchScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => CitySearchBloc(repository),
       child: const CitySearchView(),
+      // child: const TestWidState(),
     );
   }
 }
-

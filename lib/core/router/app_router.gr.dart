@@ -44,16 +44,72 @@ class ForecastRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [WeatherScreen]
-class WeatherRoute extends PageRouteInfo<void> {
-  const WeatherRoute({List<PageRouteInfo>? children})
-    : super(WeatherRoute.name, initialChildren: children);
+class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
+  WeatherRoute({
+    Key? key,
+    required double latitude,
+    required double longitude,
+    required String cityName,
+    List<PageRouteInfo>? children,
+  }) : super(
+         WeatherRoute.name,
+         args: WeatherRouteArgs(
+           key: key,
+           latitude: latitude,
+           longitude: longitude,
+           cityName: cityName,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'WeatherRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const WeatherScreen();
+      final args = data.argsAs<WeatherRouteArgs>();
+      return WeatherScreen(
+        key: args.key,
+        latitude: args.latitude,
+        longitude: args.longitude,
+        cityName: args.cityName,
+      );
     },
   );
+}
+
+class WeatherRouteArgs {
+  const WeatherRouteArgs({
+    this.key,
+    required this.latitude,
+    required this.longitude,
+    required this.cityName,
+  });
+
+  final Key? key;
+
+  final double latitude;
+
+  final double longitude;
+
+  final String cityName;
+
+  @override
+  String toString() {
+    return 'WeatherRouteArgs{key: $key, latitude: $latitude, longitude: $longitude, cityName: $cityName}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! WeatherRouteArgs) return false;
+    return key == other.key &&
+        latitude == other.latitude &&
+        longitude == other.longitude &&
+        cityName == other.cityName;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ cityName.hashCode;
 }
