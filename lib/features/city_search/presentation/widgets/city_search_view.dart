@@ -15,33 +15,27 @@ class CitySearchView extends StatelessWidget {
 
     return Stack(
       children: [
-
-        
         Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF1C1C3C),
-                Color(0xFF0F2027),
-                Color(0xFF000000),
-              ],
+              colors: [Color(0xFF1C1C3C), Color(0xFF0F2027), Color(0xFF000000)],
             ),
           ),
         ),
 
-       
         Scaffold(
           backgroundColor: Colors.transparent,
 
           appBar: AppBar(
-            title: const Text(StringConstants.kCitySearch,
-            style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,   
-      ),
-    ),
+            title: const Text(
+              StringConstants.kCitySearch,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
@@ -51,22 +45,15 @@ class CitySearchView extends StatelessWidget {
 
             child: Column(
               children: [
-
-               
                 TextField(
                   controller: controller,
                   onChanged: (value) {
-                    
-                      context.read<CitySearchBloc>().add(
-                        SearchCityEvent(value),
-                      );
-                    },
-                  
+                    context.read<CitySearchBloc>().add(SearchCityEvent(value));
+                  },
 
                   decoration: InputDecoration(
                     hintText: StringConstants.kEnterCity,
-                    hintStyle: const TextStyle(
-                    color: Colors.white70,),
+                    hintStyle: const TextStyle(color: Colors.white70),
 
                     prefixIcon: const Icon(Icons.search, color: Colors.white),
 
@@ -74,9 +61,7 @@ class CitySearchView extends StatelessWidget {
                       icon: const Icon(Icons.clear, color: Colors.white),
                       onPressed: () {
                         controller.clear();
-                         context.read<CitySearchBloc>().add(
-                          SearchCityEvent(""),
-                         );
+                        context.read<CitySearchBloc>().add(SearchCityEvent(""));
                       },
                     ),
 
@@ -94,26 +79,21 @@ class CitySearchView extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                
                 Expanded(
                   child: BlocBuilder<CitySearchBloc, CitySearchState>(
                     builder: (context, state) {
-
                       if (state is CityLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       if (state is CityLoaded) {
                         return ListView.builder(
                           itemCount: state.cities.length,
                           itemBuilder: (context, index) {
-
                             final city = state.cities[index];
 
                             return Card(
-                              color: Colors.white.withOpacity(0.15),
+                              color: Colors.white.withValues(alpha: 0.15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
