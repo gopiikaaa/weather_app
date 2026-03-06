@@ -1,16 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/widget_constants/gradient_background.dart';
-
+import '../../../../core/network/dio_client.dart';
+import '../../data/datasources/weather_remote_datasource.dart';
+import '../../data/repositories/weather_repository_impl.dart';
+import '../../domain/usecases/get_weather_usecase.dart';
+import '../bloc/weather_bloc.dart';
+import '../bloc/weather_event.dart';
+import '../widgets/weather_view.dart';
 
 @RoutePage()
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({
-    super.key,
     required this.latitude,
     required this.longitude,
     required this.cityName,
+    super.key,
   });
 
   final double latitude;
@@ -19,49 +25,19 @@ class WeatherScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientBackground(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
+    final dioClient = DioClient();
 
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-    color: Colors.white,),
-    
-          title: Text(
-            cityName,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
+    final remoteDatasource = WeatherRemoteDatasource(dioClient);
 
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "City: $cityName",
-                style: const TextStyle(color: Colors.white, fontSize: 22),
-              ),
+    final repository = WeatherRepositoryImpl(remoteDatasource);
 
-              const SizedBox(height: 20),
+    final useCase = GetWeatherUseCase(repository);
 
-              Text(
-                "Latitude: $latitude",
-                style: const TextStyle(color: Colors.white70),
-              ),
-
-              Text(
-                "Longitude: $longitude",
-                style: const TextStyle(color: Colors.white70),
-              ),
-            ],
-          ),
-        ),
-      ),
+    return BlocProvider(
+      create: (_) =>
+          WeatherBloc(useCase)
+            ..add(GetWeatherEvent(latitude: latitude, longitude: longitude)),
+      child: WeatherView(cityName: cityName),
     );
   }
 }

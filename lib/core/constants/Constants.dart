@@ -6,4 +6,5 @@ class StringConstants {
   static const String kSearch = "Search";
   static const String kErrorMessage = "Something went wrong";
   static const String kSearchCityTag ="search city here";
+  static const String kWeatherFailed = "Failed to load weather";
 }

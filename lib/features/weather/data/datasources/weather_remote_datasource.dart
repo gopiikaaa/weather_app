@@ -11,17 +11,21 @@ class WeatherRemoteDatasource {
     required double latitude,
     required double longitude,
   }) async {
-    final response = await dioClient.get(
-      ApiConstants.weather,
-      queryParameters: {
-        ApiConstants.latitude: latitude,
-        ApiConstants.longitude: longitude,
-        ApiConstants.currentWeather: true,
-      },
-    );
+    try {
+      final response = await dioClient.get(
+        ApiConstants.weather,
+        queryParameters: {
+          ApiConstants.latitude: latitude,
+          ApiConstants.longitude: longitude,
+          ApiConstants.currentWeather: true,
+        },
+      );
 
-    final data = response.data["current_weather"];
+      final weatherJson = response.data["current_weather"];
 
-    return WeatherModel.fromJson(data);
+      return WeatherModel.fromJson(weatherJson);
+    } catch (e) {
+      throw Exception("Weather fetch failed");
+    }
   }
 }

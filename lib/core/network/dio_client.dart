@@ -1,34 +1,26 @@
 import 'package:dio/dio.dart';
 
-import '../constants/api_constants.dart';
+class DioClient {
+  DioClient()
+    : _dio = Dio(
+        BaseOptions(
+          connectTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+        ),
+      );
 
-class DioClient{
   final Dio _dio;
-   DioClient()
-   : _dio =Dio(
-    BaseOptions(baseUrl: ApiConstants.geoBaseUrl,
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
-    ),
-   );
 
-Future<Response> get(
-    String path, {
+  Future<Response> get(
+    String url, {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-
-      final response = await _dio.get(
-        path,
-        queryParameters: queryParameters,
-      );
+      final response = await _dio.get(url, queryParameters: queryParameters);
 
       return response;
-
     } on DioException catch (e) {
-
       throw Exception(e.message);
-
     }
   }
 }
