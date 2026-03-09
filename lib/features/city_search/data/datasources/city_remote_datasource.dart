@@ -1,4 +1,5 @@
 import '../../../../core/constants/api_constants.dart';
+import '../../../../core/constants/constants.dart';
 import '../../../../core/network/dio_client.dart';
 import '../models/city_model.dart';
 
@@ -11,10 +12,10 @@ class CityRemoteDatasource {
     try {
       final response = await dioClient.get(
         ApiConstants.searchCity,
-        queryParameters: {"name": cityName},
+        queryParameters: {ApiConstants.name: cityName},
       );
 
-      final List results = response.data["results"] ?? [];
+      final List results = response.data[StringConstants.kResult] ?? [];
 
       final List<CityModel> cities = results.map((cityJson) {
         return CityModel.fromJson(cityJson);
@@ -24,7 +25,7 @@ class CityRemoteDatasource {
     } catch (e) {
       print("ERROR: $e");
 
-      throw Exception("City fetch failed");
+      throw Exception(StringConstants.kFailMessage);
     }
   }
 }

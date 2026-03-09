@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../data/datasources/city_remote_datasource.dart';
 import '../../data/repositories/city_repository_impl.dart';
+import '../../domain/usecases/search_city_usecase.dart';
 import '../bloc/city_search/city_search_bloc.dart';
 import '../widgets/city_search_view.dart';
 
@@ -14,15 +15,16 @@ class CitySearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final dioClient = DioClient();
     final remoteDatasource = CityRemoteDatasource(dioClient);
     final repository = CityRepositoryImpl(remoteDatasource);
 
+    final searchCityUseCase = SearchCityUseCase(repository);
+
     return BlocProvider(
-      create: (_) => CitySearchBloc(repository),
+      create: (_) => CitySearchBloc(searchCityUseCase),
       child: const CitySearchView(),
+      // child: const TestWidState(),
     );
   }
 }
-

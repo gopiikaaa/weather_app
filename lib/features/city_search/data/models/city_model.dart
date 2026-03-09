@@ -1,12 +1,7 @@
+import '../../../../core/constants/api_constants.dart';
 import '../../domain/entities/city.dart';
 
 class CityModel {
-
-  final String name;
-  final double latitude;
-  final double longitude;
-  final String country;
-
   CityModel({
     required this.name,
     required this.latitude,
@@ -15,26 +10,25 @@ class CityModel {
   });
 
   factory CityModel.fromJson(Map<String, dynamic> json) {
-
     return CityModel(
-      name: json['name'] ?? '',
-      latitude: (json['latitude'] ?? 0).toDouble(),
-      longitude: (json['longitude'] ?? 0).toDouble(),
-      country: json['country'] ?? '',
+      name: json[ApiConstants.name] ?? '',
+      latitude: (json[ApiConstants.latitude] ?? 0).toDouble(),
+      longitude: (json[ApiConstants.longitude] ?? 0).toDouble(),
+      country: json[ApiConstants.country] ?? '',
     );
-
   }
 
-  //convert Model → Entity
-  City toEntity() {
+  final String name;
+  final double latitude;
+  final double longitude;
+  final String country;
 
+  City toEntity() {
     return City(
       name: name,
       latitude: latitude,
       longitude: longitude,
       country: country,
     );
-
   }
-
 }
