@@ -36,8 +36,15 @@ class WeatherScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) =>
           WeatherBloc(useCase)
-            ..add(GetWeatherEvent(latitude: latitude, longitude: longitude)),
-      child: WeatherView(cityName: cityName),
+            ..add(GetWeatherEvent(
+              latitude: latitude,
+              longitude: longitude,
+            )),
+      child: WeatherView(
+        cityName: cityName,
+        latitude: latitude,
+        longitude: longitude,
+      ),
     );
   }
 }

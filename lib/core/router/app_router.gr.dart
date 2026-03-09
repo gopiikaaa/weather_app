@@ -28,36 +28,92 @@ class CitySearchRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ForecastScreen]
-class ForecastRoute extends PageRouteInfo<void> {
-  const ForecastRoute({List<PageRouteInfo>? children})
-    : super(ForecastRoute.name, initialChildren: children);
+class ForecastRoute extends PageRouteInfo<ForecastRouteArgs> {
+  ForecastRoute({
+    required double latitude,
+    required double longitude,
+    required String cityName,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ForecastRoute.name,
+         args: ForecastRouteArgs(
+           latitude: latitude,
+           longitude: longitude,
+           cityName: cityName,
+           key: key,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'ForecastRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ForecastScreen();
+      final args = data.argsAs<ForecastRouteArgs>();
+      return ForecastScreen(
+        latitude: args.latitude,
+        longitude: args.longitude,
+        cityName: args.cityName,
+        key: args.key,
+      );
     },
   );
+}
+
+class ForecastRouteArgs {
+  const ForecastRouteArgs({
+    required this.latitude,
+    required this.longitude,
+    required this.cityName,
+    this.key,
+  });
+
+  final double latitude;
+
+  final double longitude;
+
+  final String cityName;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ForecastRouteArgs{latitude: $latitude, longitude: $longitude, cityName: $cityName, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ForecastRouteArgs) return false;
+    return latitude == other.latitude &&
+        longitude == other.longitude &&
+        cityName == other.cityName &&
+        key == other.key;
+  }
+
+  @override
+  int get hashCode =>
+      latitude.hashCode ^ longitude.hashCode ^ cityName.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [WeatherScreen]
 class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
   WeatherRoute({
-    Key? key,
     required double latitude,
     required double longitude,
     required String cityName,
+    Key? key,
     List<PageRouteInfo>? children,
   }) : super(
          WeatherRoute.name,
          args: WeatherRouteArgs(
-           key: key,
            latitude: latitude,
            longitude: longitude,
            cityName: cityName,
+           key: key,
          ),
          initialChildren: children,
        );
@@ -69,10 +125,10 @@ class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
     builder: (data) {
       final args = data.argsAs<WeatherRouteArgs>();
       return WeatherScreen(
-        key: args.key,
         latitude: args.latitude,
         longitude: args.longitude,
         cityName: args.cityName,
+        key: args.key,
       );
     },
   );
@@ -80,13 +136,11 @@ class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
 
 class WeatherRouteArgs {
   const WeatherRouteArgs({
-    this.key,
     required this.latitude,
     required this.longitude,
     required this.cityName,
+    this.key,
   });
-
-  final Key? key;
 
   final double latitude;
 
@@ -94,22 +148,24 @@ class WeatherRouteArgs {
 
   final String cityName;
 
+  final Key? key;
+
   @override
   String toString() {
-    return 'WeatherRouteArgs{key: $key, latitude: $latitude, longitude: $longitude, cityName: $cityName}';
+    return 'WeatherRouteArgs{latitude: $latitude, longitude: $longitude, cityName: $cityName, key: $key}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! WeatherRouteArgs) return false;
-    return key == other.key &&
-        latitude == other.latitude &&
+    return latitude == other.latitude &&
         longitude == other.longitude &&
-        cityName == other.cityName;
+        cityName == other.cityName &&
+        key == other.key;
   }
 
   @override
   int get hashCode =>
-      key.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ cityName.hashCode;
+      latitude.hashCode ^ longitude.hashCode ^ cityName.hashCode ^ key.hashCode;
 }
